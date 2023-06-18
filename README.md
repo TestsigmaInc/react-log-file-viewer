@@ -1,4 +1,4 @@
-```
+```markdown
 # React Log File Viewer
 
 A React component for viewing large text files.
@@ -69,5 +69,4 @@ The source code for the React Log File Viewer component is hosted on GitHub: [ht
 ## Issues
 
 If you encounter any issues or have any suggestions for improvements, please open an issue on the GitHub repository.
-
 ```
