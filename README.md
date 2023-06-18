@@ -27,7 +27,7 @@ import ReactLogFileViewer from 'react-log-file-viewer';
 function App() {
   return (
     <div>
-      <ReactLogFileViewer filePath="path/to/your/file.txt" />
+      <ReactLogFileViewer filePath="path/file.txt" />
     </div>
   );
 }
