@@ -52,8 +52,7 @@ import ReactLogFileViewer from 'react-log-file-viewer';
 function App() {
   return (
     <div>
-      <h1>Large Text File Viewer</h1>
-      <ReactLogFileViewer filePath="path/to/your/file.txt" itemSize={30} lineHeight={25} width="1000px" />
+      <ReactLogFileViewer filePath="path/file.txt" itemSize={30} lineHeight={25} width="1000px" />
     </div>
   );
 }
