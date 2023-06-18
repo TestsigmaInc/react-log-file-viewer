@@ -56,8 +56,12 @@ const ReactLogFileViewer = ({ filePath, itemSize = 40, lineHeight = 20, width = 
         width: width,
         overflow: 'auto',
         padding: '10px 20px',
-        border: '1px solid gray',
+        border: '1px solid rgba(99, 99, 99, 0.2)',
         margin: '20px auto',
+        boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
+        borderRadius: '6px',
+        fontSize: '13px',
+        color: 'rgb(75 87 104)'
       }}
     >
       {lines.length > 0 ? (

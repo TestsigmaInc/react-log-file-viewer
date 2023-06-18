@@ -1,3 +1,3 @@
-import ReactLogFileViewer from './components/ReactLogFileViewer'
+import ReactLogFileViewer from '../dist/components/ReactLogFileViewer.js'
 
-export { ReactLogFileViewer };
+export default ReactLogFileViewer;
