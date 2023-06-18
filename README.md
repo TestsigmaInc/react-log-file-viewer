@@ -1,4 +1,3 @@
-```markdown
 # React Log File Viewer
 
 A React component for viewing large text files.
@@ -9,11 +8,10 @@ You can install the React Log File Viewer package using npm or yarn.
 
 ```bash
 npm install react-log-file-viewer
-```
+
 
 or
 
-```bash
 yarn add react-log-file-viewer
 ```
 
