@@ -1,4 +1,4 @@
-```markdown
+```
 # React Log File Viewer
 
 A React component for viewing large text files.
