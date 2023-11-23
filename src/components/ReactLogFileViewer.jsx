@@ -1,14 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { createWorker } from '../utils/webWorkerUtils';
+import React, { useEffect, useRef, useState } from "react";
+import { createWorker } from "../utils/webWorkerUtils";
 
-const ReactLogFileViewer = ({ filePath, itemSize = 40, lineHeight = 20, width = '800px' }) => {
+const ReactLogFileViewer = ({
+  filePath,
+  itemSize = 40,
+  lineHeight = 20,
+  width = "800px",
+  delimiter = "\\n",
+}) => {
   const containerRef = useRef(null);
   const [lines, setLines] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(itemSize);
 
   useEffect(() => {
-    const workerInstance = createWorker();
+    const workerInstance = createWorker(delimiter);
     workerInstance.onmessage = (event) => {
       const { data } = event;
       setLines(data);
@@ -16,6 +22,7 @@ const ReactLogFileViewer = ({ filePath, itemSize = 40, lineHeight = 20, width = 
     workerInstance.postMessage({ filePath });
     return () => {
       workerInstance.terminate();
+      setLines([]);
     };
   }, [filePath]);
 
@@ -26,17 +33,19 @@ const ReactLogFileViewer = ({ filePath, itemSize = 40, lineHeight = 20, width = 
       const scrollTop = container.scrollTop;
       const clientHeight = container.clientHeight;
       const currentStartIndex = Math.floor(scrollTop / lineHeight);
-      const currentEndIndex = Math.ceil((scrollTop + clientHeight) / lineHeight);
+      const currentEndIndex = Math.ceil(
+        (scrollTop + clientHeight) / lineHeight
+      );
       if (currentStartIndex !== startIndex || currentEndIndex !== endIndex) {
         setStartIndex(currentStartIndex);
         setEndIndex(currentEndIndex);
       }
     };
 
-    container.addEventListener('scroll', handleScroll);
+    container.addEventListener("scroll", handleScroll);
 
     return () => {
-      container.removeEventListener('scroll', handleScroll);
+      container.removeEventListener("scroll", handleScroll);
     };
   }, [startIndex, endIndex, lineHeight]);
 
@@ -54,25 +63,25 @@ const ReactLogFileViewer = ({ filePath, itemSize = 40, lineHeight = 20, width = 
       style={{
         height: calculateContainerHeight(),
         width: width,
-        overflow: 'auto',
-        padding: '10px 20px',
-        border: '1px solid rgba(99, 99, 99, 0.2)',
-        margin: '20px auto',
-        boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-        borderRadius: '6px',
-        fontSize: '13px',
-        color: 'rgb(75 87 104)'
+        overflow: "auto",
+        padding: "10px 20px",
+        border: "1px solid rgba(99, 99, 99, 0.2)",
+        margin: "20px auto",
+        boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+        borderRadius: "6px",
+        fontSize: "13px",
+        color: "rgb(75 87 104)",
       }}
     >
       {lines.length > 0 ? (
         <>
           <div style={{ height: `${startIndex * lineHeight}px` }} />
           {visibleLines.map((line, index) => (
-            <div key={startIndex + index} style={{ height: `${lineHeight}px` }}>
-              {line}
-            </div>
+            <pre key={startIndex + index}>{line}</pre>
           ))}
-          <div style={{ height: `${(lines.length - endIndex) * lineHeight}px` }} />
+          <div
+            style={{ height: `${(lines.length - endIndex) * lineHeight}px` }}
+          />
         </>
       ) : (
         <div>Loading...</div>
