@@ -38,6 +38,7 @@
         "not op_mini all"
     ],
     "devDependencies": {
+        "@babel/cli": "^7.23.4",
         "@babel/preset-react": "^7.22.5"
     }
 }
