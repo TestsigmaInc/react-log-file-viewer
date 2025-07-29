@@ -2,36 +2,26 @@
     "name": "@testsigmainc/react-log-file-viewer",
     "version": "1.1.0",
     "description": "A React component for viewing large text files.",
+    "type": "module",
+    "source": "src/index.js",
     "main": "dist/index.js",
+    "umd:main": "dist/index.umd.js",
     "module": "dist/index.js",
     "exports": {
-        ".": {
-            "import": "./dist/index.js",
-            "require": "./dist/index.js"
-        }
+        "types": "./dist/index.d.ts",
+        "require": "./dist/index.js",
+        "default": "./dist/index.js"
     },
+    "types": "dist/index.d.ts",
     "publishConfig": {
-        "registry": "https://npm.pkg.github.com"
+        "@testsigmainc:registry": "https://npm.pkg.github.com"
     },
-    "files": [
-        "dist",
-        "src"
-    ],
     "scripts": {
         "build": "babel src --out-dir dist --copy-files",
         "prepublishOnly": "npm run build"
     },
-    "keywords": [
-        "react",
-        "component",
-        "text file",
-        "viewer",
-        "large file",
-        "log viewer",
-        "file viewer"
-    ],
-    "author": "Vinodh Kumar G",
-    "license": "MIT",
+    "author": "",
+    "license": "ISC",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/TestsigmaInc/react-log-file-viewer.git"
@@ -40,19 +30,10 @@
         "url": "https://github.com/TestsigmaInc/react-log-file-viewer/issues"
     },
     "homepage": "https://github.com/TestsigmaInc/react-log-file-viewer#readme",
-    "engines": {
-        "node": ">=16.0.0"
-    },
     "peerDependencies": {
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
     },
-    "browserslist": [
-        ">0.2%",
-        "not dead",
-        "not ie <= 11",
-        "not op_mini all"
-    ],
     "devDependencies": {
         "@babel/cli": "^7.23.4",
         "@babel/preset-react": "^7.22.5"
