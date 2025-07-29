@@ -11,11 +11,15 @@
         }
     },
     "publishConfig": {
-        "@testsigmainc:registry": "https://npm.pkg.github.com"
+        "registry": "https://npm.pkg.github.com"
     },
+    "files": [
+        "dist",
+        "src"
+    ],
     "scripts": {
         "build": "babel src --out-dir dist --copy-files",
-        "prepublish": "npm run build"
+        "prepublishOnly": "npm run build"
     },
     "keywords": [
         "react",
@@ -36,6 +40,9 @@
         "url": "https://github.com/TestsigmaInc/react-log-file-viewer/issues"
     },
     "homepage": "https://github.com/TestsigmaInc/react-log-file-viewer#readme",
+    "engines": {
+        "node": ">=16.0.0"
+    },
     "peerDependencies": {
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
