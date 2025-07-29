@@ -1,6 +1,6 @@
 {
     "name": "react-log-file-viewer",
-    "version": "1.0.18-canary",
+    "version": "1.1.0",
     "description": "A React component for viewing large text files.",
     "main": "dist/index.js",
     "module": "src/index.js",

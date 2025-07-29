@@ -7,13 +7,22 @@ const ReactLogFileViewer = ({
   lineHeight = 20,
   width = "800px",
   delimiter = "\\n",
+  LoadingComponent = () => <div>Loading...</div>,
+  EmptyComponent = () => <div>No Logs Found</div>
 }) => {
   const containerRef = useRef(null);
   const [lines, setLines] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(itemSize);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    if (!filePath) {
+      setLines([]);
+      setIsLoading(false);
+      return;
+    }
+    setIsLoading(true);
     const workerInstance = createWorker(delimiter);
     workerInstance.onmessage = (event) => {
       const { data } = event;
@@ -70,10 +79,12 @@ const ReactLogFileViewer = ({
         boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
         borderRadius: "6px",
         fontSize: "13px",
-        color: "rgb(75 87 104)",
+        color: "rgb(75 87 104)"
       }}
     >
-      {lines.length > 0 ? (
+      {isLoading ? (
+        <LoadingComponent />
+      ) : lines.length > 0 ? (
         <>
           <div style={{ height: `${startIndex * lineHeight}px` }} />
           {visibleLines.map((line, index) => (
@@ -84,7 +95,7 @@ const ReactLogFileViewer = ({
           />
         </>
       ) : (
-        <div>Loading...</div>
+        <EmptyComponent />
       )}
     </div>
   );

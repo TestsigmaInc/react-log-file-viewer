@@ -1,4 +1,4 @@
-export const createWorker = () => {
+export const createWorker = delimiter => {
   const workerScript = `
       self.onmessage = async (event) => {
         const { data } = event;
@@ -20,7 +20,7 @@ export const createWorker = () => {
   
           reader.onload = () => {
             const fileContent = reader.result;
-            const lines = fileContent.split('\\n');
+            const lines = fileContent.split('${delimiter}');
             resolve(lines);
           };
   
@@ -40,7 +40,7 @@ export const createWorker = () => {
       };
     `;
   const blob = new Blob([workerScript], {
-    type: 'text/javascript'
+    type: "text/javascript"
   });
   const worker = new Worker(URL.createObjectURL(blob));
   return worker;
