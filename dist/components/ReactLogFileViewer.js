@@ -1,17 +1,27 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { createWorker } from '../utils/webWorkerUtils';
+import React, { useEffect, useRef, useState } from "react";
+import { createWorker } from "../utils/webWorkerUtils";
 const ReactLogFileViewer = ({
   filePath,
   itemSize = 40,
   lineHeight = 20,
-  width = '800px'
+  width = "800px",
+  delimiter = "\\n",
+  LoadingComponent = () => /*#__PURE__*/React.createElement("div", null, "Loading..."),
+  EmptyComponent = () => /*#__PURE__*/React.createElement("div", null, "No Logs Found")
 }) => {
   const containerRef = useRef(null);
   const [lines, setLines] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(itemSize);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    const workerInstance = createWorker();
+    if (!filePath) {
+      setLines([]);
+      setIsLoading(false);
+      return;
+    }
+    setIsLoading(true);
+    const workerInstance = createWorker(delimiter);
     workerInstance.onmessage = event => {
       const {
         data
@@ -23,6 +33,7 @@ const ReactLogFileViewer = ({
     });
     return () => {
       workerInstance.terminate();
+      setLines([]);
     };
   }, [filePath]);
   useEffect(() => {
@@ -37,9 +48,9 @@ const ReactLogFileViewer = ({
         setEndIndex(currentEndIndex);
       }
     };
-    container.addEventListener('scroll', handleScroll);
+    container.addEventListener("scroll", handleScroll);
     return () => {
-      container.removeEventListener('scroll', handleScroll);
+      container.removeEventListener("scroll", handleScroll);
     };
   }, [startIndex, endIndex, lineHeight]);
   const visibleLines = lines.slice(startIndex, endIndex);
@@ -53,28 +64,25 @@ const ReactLogFileViewer = ({
     style: {
       height: calculateContainerHeight(),
       width: width,
-      overflow: 'auto',
-      padding: '10px 20px',
-      border: '1px solid rgba(99, 99, 99, 0.2)',
-      margin: '20px auto',
-      boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-      borderRadius: '6px',
-      fontSize: '13px',
-      color: 'rgb(75 87 104)'
+      overflow: "auto",
+      padding: "10px 20px",
+      border: "1px solid rgba(99, 99, 99, 0.2)",
+      margin: "20px auto",
+      boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+      borderRadius: "6px",
+      fontSize: "13px",
+      color: "rgb(75 87 104)"
     }
-  }, lines.length > 0 ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+  }, isLoading ? /*#__PURE__*/React.createElement(LoadingComponent, null) : lines.length > 0 ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
       height: `${startIndex * lineHeight}px`
     }
-  }), visibleLines.map((line, index) => /*#__PURE__*/React.createElement("div", {
-    key: startIndex + index,
-    style: {
-      height: `${lineHeight}px`
-    }
+  }), visibleLines.map((line, index) => /*#__PURE__*/React.createElement("pre", {
+    key: startIndex + index
   }, line)), /*#__PURE__*/React.createElement("div", {
     style: {
       height: `${(lines.length - endIndex) * lineHeight}px`
     }
-  })) : /*#__PURE__*/React.createElement("div", null, "Loading..."));
+  })) : /*#__PURE__*/React.createElement(EmptyComponent, null));
 };
 export default ReactLogFileViewer;

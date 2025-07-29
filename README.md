@@ -4,23 +4,35 @@ A React component for viewing large text files.
 
 ## Installation
 
-You can install the React Log File Viewer package using npm or yarn.
+You can install the React Log File Viewer package from GitHub Package Registry using npm or yarn.
+
+### From GitHub Package Registry (Recommended)
 
 ```bash
-npm install react-log-file-viewer
-
+npm install @testsigmainc/react-log-file-viewer
+```
 
 or
 
-yarn add react-log-file-viewer
+```bash
+yarn add @testsigmainc/react-log-file-viewer
 ```
+
+**Note:** If you haven't configured npm to use GitHub Package Registry for the `@testsigmainc` scope, you may need to create a `.npmrc` file in your project with:
+
+```
+@testsigmainc:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+You'll need to set the `GITHUB_TOKEN` environment variable with a GitHub Personal Access Token that has `read:packages` permission.
 
 ## Usage
 
 Import the `ReactLogFileViewer` component and use it in your React application.
 
 ```jsx
-import ReactLogFileViewer from 'react-log-file-viewer';
+import ReactLogFileViewer from '@testsigmainc/react-log-file-viewer';
 
 function App() {
   return (
@@ -45,7 +57,7 @@ The `ReactLogFileViewer` component accepts the following props:
 Here's an example of using the React Log File Viewer component:
 
 ```jsx
-import ReactLogFileViewer from 'react-log-file-viewer';
+import ReactLogFileViewer from '@testsigmainc/react-log-file-viewer';
 
 function App() {
   return (
