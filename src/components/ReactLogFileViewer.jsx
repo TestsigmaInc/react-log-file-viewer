@@ -8,7 +8,7 @@ const ReactLogFileViewer = ({
   width = "800px",
   delimiter = "\\n",
   LoadingComponent = () => <div>Loading...</div>,
-  EmptyComponent = () => <div>No Logs Found</div>
+  EmptyComponent = () => <div>No Logs Found</div>,
 }) => {
   const containerRef = useRef(null);
   const [lines, setLines] = useState([]);
@@ -27,6 +27,7 @@ const ReactLogFileViewer = ({
     workerInstance.onmessage = (event) => {
       const { data } = event;
       setLines(data);
+      setIsLoading(false);
     };
     workerInstance.postMessage({ filePath });
     return () => {
@@ -79,7 +80,7 @@ const ReactLogFileViewer = ({
         boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
         borderRadius: "6px",
         fontSize: "13px",
-        color: "rgb(75 87 104)"
+        color: "rgb(75 87 104)",
       }}
     >
       {isLoading ? (
