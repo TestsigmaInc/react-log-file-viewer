@@ -27,6 +27,7 @@ const ReactLogFileViewer = ({
         data
       } = event;
       setLines(data);
+      setIsLoading(false);
     };
     workerInstance.postMessage({
       filePath
