@@ -16,10 +16,6 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-      - name: Setup npmrc
-        run: |
-          echo "@testsigmainc:registry=https://npm.pkg.github.com" > .npmrc
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
       - name: Install dependencies and build 🔧
         run: npm ci && npm run build
       - name: Publish package on Github 📦
