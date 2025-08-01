@@ -1,6 +1,6 @@
 {
     "name": "@testsigmainc/react-log-file-viewer",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "A React component for viewing large text files.",
     "type": "module",
     "source": "src/index.js",
